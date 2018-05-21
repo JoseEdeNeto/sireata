@@ -17,6 +17,9 @@ import br.edu.utfpr.dv.sireata.dao.AtaDAO;
 import br.edu.utfpr.dv.sireata.dao.AtaParticipanteDAO;
 import br.edu.utfpr.dv.sireata.dao.OrgaoDAO;
 import br.edu.utfpr.dv.sireata.dao.PautaDAO;
+import br.edu.utfpr.dv.sireata.dao.algorithms.anexo.AnexoCriarDAO;
+import br.edu.utfpr.dv.sireata.dao.algorithms.anexo.AnexoExcluirDAO;
+import br.edu.utfpr.dv.sireata.dao.algorithms.anexo.AnexoLerDAO;
 import br.edu.utfpr.dv.sireata.model.Anexo;
 import br.edu.utfpr.dv.sireata.model.Ata;
 import br.edu.utfpr.dv.sireata.model.Pauta;
@@ -231,11 +234,11 @@ public class AtaBO {
 				int i = 1;
 				
 				for(Anexo a : ata.getAnexos()) {
-					AnexoDAO adao = new AnexoDAO();
+					AnexoDAO adao = new AnexoDAO(new AnexoCriarDAO(), new AnexoLerDAO(), new AnexoExcluirDAO());
 					
 					a.getAta().setIdAta(id);
 					a.setOrdem(i);
-					adao.salvar(a);
+					adao.criar(a);
 					i++;
 				}
 			}
